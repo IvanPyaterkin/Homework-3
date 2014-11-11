@@ -28,7 +28,7 @@
                     </script>
                 </li>
                 <li class="sertificates_list">
-                	<h4><a href="http://test1.ru/?page_id=72">Сертифiкованi професiонали</a></h4>
+                	<h4><a href="http://homework-3.local/?page_id=72">Сертифiкованi професiонали</a></h4>
                 </li>
                 <li>
                     <h4>Наші Спонсори</h4>
