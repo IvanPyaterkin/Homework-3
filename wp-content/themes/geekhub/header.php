@@ -3,15 +3,14 @@
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<title><?php wp_title(); ?></title>
-
+	
 	<link href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/flipclock.css" />
 
     <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery-1.6.4.min.js"></script>
     <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/prefixfree.min.js"></script>
     <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/flipclock.min.js"></script>
-    <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/openapi.js-34.js"></script>
-
+	<script type="text/javascript" src="http://vk.com/js/api/openapi.js?115"></script>
     <script type="text/javascript">
         $(function(){
 

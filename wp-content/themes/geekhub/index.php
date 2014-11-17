@@ -23,9 +23,10 @@
            
             <ul class="social_share">
                 <li id="vk">
-                    <script type="text/javascript">
-                        VK.Widgets.Group("vk", {mode: 0, width: "276", height: "240"}, 30111409);
-                    </script>
+					<div id="vk_groups"></div>
+					<script type="text/javascript">
+					VK.Widgets.Group("vk_groups", {mode: 0, width: "276", height: "240", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 30111409);
+					</script>
                 </li>
                 <li class="sertificates_list">
                 	<h4><a href="http://homework-3.local/?page_id=72">Сертифiкованi професiонали</a></h4>
