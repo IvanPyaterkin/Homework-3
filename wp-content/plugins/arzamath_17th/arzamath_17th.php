@@ -127,14 +127,15 @@ function myplugin_meta_box_callback($post) {
 
 	<p>
 		<label for="myplugin_new_field1">Текстовое поле</label>
-		<input type="text" name="myplugin_new_field1" value="<?php echo @get_post_meta($post->ID, 'myplugin_new_field1', true); ?>" size="25" /> 
+		<input id="optionText" type="text" name="myplugin_new_field1" value="<?php echo @get_post_meta($post->ID, 'myplugin_new_field1', true); ?>" size="25" /> 
 		
 		<!--Как подтянуть значение из БД значение Value  -->
 	</p>
 	<p>
 		<label for="myplugin_new_field2">Мультивыбор</label>
 		<?php $array2 = @get_post_meta($post->ID, 'myplugin_new_field2', true); ?>
-		<select name='myplugin_new_field2[]' multiple="multiple">
+		<?php if(!is_array($array2)) $array2 = array(); ?>
+		<select id="optionSelect" name='myplugin_new_field2[]' multiple="multiple">
 			<option <?php if(in_array("Значение 1", $array2)): ?>selected <?php endif; ?>value='Значение 1'>Значение 1</option>
 			<option <?php if(in_array("Значение 2", $array2)): ?>selected <?php endif; ?>value='Значение 2'>Значение 2</option>
 			<option <?php if(in_array("Значение 3", $array2)): ?>selected <?php endif; ?>value='Значение 3'>Значение 3</option>
@@ -145,6 +146,7 @@ function myplugin_meta_box_callback($post) {
 		<label for="myplugin_new_field3">Добавить картинку</label>
 		<input type="file" name="myplugin_new_field3" value="<?php echo @get_post_meta($post->ID, 'myplugin_new_field3', true); ?>" size="25" />
 	</p>
+	<p><button id="buttonSend">Обновить параметры</button></p>
 <?php }
 
 function arzamath_save_postdata( $post_id ) {
@@ -170,3 +172,59 @@ function arzamath_save_postdata( $post_id ) {
 	update_post_meta( $post_id, 'myplugin_new_field3', $setting3 );
 }
 add_action( 'save_post', 'arzamath_save_postdata' );
+
+add_action( 'admin_footer', 'my_action_javascript' ); // Write our JS below here
+
+function my_action_javascript() { ?>
+	<script type="text/javascript" >
+	function getUrlVars() {
+		var vars = [], hash;
+		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		for(var i = 0; i < hashes.length; i++) {
+			hash = hashes[i].split('=');
+			vars.push(hash[0]);
+			vars[hash[0]] = hash[1];
+		}
+		return vars;
+	}
+	jQuery(document).ready(function($) {
+		jQuery('#buttonSend').click(function(e) {
+			e.preventDefault();
+			var optionText = jQuery('#optionText').val();
+			var optionSelect = jQuery('#optionSelect').val() || [];
+			var postID = getUrlVars()["post"];
+			var data = {
+				'action': 'update_params',
+				'postID': postID,
+				'optionText': optionText,
+				'optionSelect': optionSelect
+			};
+
+			jQuery.post(ajaxurl, data, function(response) {
+				alert(response);
+			});
+		});
+	});
+	</script> <?php
+}
+
+
+add_action( 'wp_ajax_update_params', 'my_action_callback' );
+
+function my_action_callback() {
+	global $wpdb;
+	
+	$post_id = intval( $_POST['postID'] );
+	$optionText = $_POST['optionText'];
+	$optionSelect = $_POST['optionSelect'];
+
+	if($post_id > 0) {
+		update_post_meta( $post_id, 'myplugin_new_field1', $optionText );
+		update_post_meta( $post_id, 'myplugin_new_field2', $optionSelect );
+		echo 'Параметры успешно обновлены';
+	} else {
+		echo "Невозможно обновить поля дле несущесвующей записи";
+	}
+
+	die(); // this is required to terminate immediately and return a proper response
+}
