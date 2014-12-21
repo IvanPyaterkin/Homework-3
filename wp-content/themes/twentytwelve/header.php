@@ -16,7 +16,7 @@
 <html class="ie ie8" <?php language_attributes(); ?>>
 <![endif]-->
 <!--[if !(IE 7) & !(IE 8)]><!-->
-<html <?php language_attributes(); ?>>
+<html lang="ru">
 <!--<![endif]-->
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
@@ -24,10 +24,21 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+
+
+
 <?php // Loads HTML5 JavaScript file to add support for HTML5 elements in older IE versions. ?>
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="<?php bloginfo('template_url') ?>/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="<?php bloginfo('template_url') ?>/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="<?php bloginfo('template_url') ?>/js/bootstrap.min.js"></script>
 <?php wp_head(); ?>
 </head>
 

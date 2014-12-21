@@ -105,7 +105,7 @@ function custom_post_type(){
 		,'menu_icon' => 'dashicons-video-alt2' 
 		,'capability_type' => 'post' 
 		,'hierarchical' => false
-		,'supports' => array('title','editor')
+		,'supports' => array('title','editor','thumbnail')
 		,'query_var' => true
 		,'show_in_nav_menus' => true
 	);
